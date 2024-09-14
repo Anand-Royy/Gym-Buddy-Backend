@@ -63,7 +63,7 @@ app.get(
     }
   }
 );
-app.get('/', (req, res) => {
+app.get('https://gym-buddy-backend-zeta.vercel.app', (req, res) => {
   res.send('hello');
 });
 
