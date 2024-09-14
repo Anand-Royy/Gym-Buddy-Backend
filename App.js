@@ -35,35 +35,29 @@ app.post(
   }
 );
 
-app.get(
-  'https://gym-buddy-backend-zeta.vercel.app/api/routines/:id',
-  async (req, res) => {
-    const { id } = req.params;
-    console.log(id);
-    try {
-      const routine = await Routine.findOne({ id });
-      if (!routine) {
-        return res.status(404).json({ message: 'Routine not found' });
-      }
-      res.status(200).json(routine);
-    } catch (err) {
-      res.status(500).json({ message: 'Server error', error: err.message });
+app.get('/api/routines/:id', async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  try {
+    const routine = await Routine.findOne({ id });
+    if (!routine) {
+      return res.status(404).json({ message: 'Routine not found' });
     }
+    res.status(200).json(routine);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
   }
-);
+});
 // Example route to get all routines
-app.get(
-  'https://gym-buddy-backend-zeta.vercel.app/api/routines',
-  async (req, res) => {
-    try {
-      const routines = await Routine.find();
-      res.status(200).json({ success: true, data: routines });
-    } catch (error) {
-      res.status(500).json({ success: false, error: error.message });
-    }
+app.get('/api/routines', async (req, res) => {
+  try {
+    const routines = await Routine.find();
+    res.status(200).json({ success: true, data: routines });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
   }
-);
-app.get('https://gym-buddy-backend-zeta.vercel.app', (req, res) => {
+});
+app.get('/', (req, res) => {
   res.send('hello');
 });
 
