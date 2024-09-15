@@ -6,7 +6,12 @@ import dotenv from 'dotenv';
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: 'https://gym-buddy-brqescw69-anand-royys-projects.vercel.app', // Replace with your Vercel frontend URL
+    credentials: true, // If your API requires credentials like tokens or cookies
+  })
+);
 dotenv.config();
 
 app.post('/api/routines', async (req, res) => {
@@ -32,22 +37,19 @@ app.post('/api/routines', async (req, res) => {
   }
 });
 
-app.get(
-  '/api/routines/:id',
-  async (req, res) => {
-    const { id } = req.params;
-    console.log(id);
-    try {
-      const routine = await Routine.findOne({ id });
-      if (!routine) {
-        return res.status(404).json({ message: 'Routine not found' });
-      }
-      res.status(200).json(routine);
-    } catch (err) {
-      res.status(500).json({ message: 'Server error', error: err.message });
+app.get('/api/routines/:id', async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  try {
+    const routine = await Routine.findOne({ id });
+    if (!routine) {
+      return res.status(404).json({ message: 'Routine not found' });
     }
+    res.status(200).json(routine);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
   }
-);
+});
 // Example route to get all routines
 app.get('/api/routines', async (req, res) => {
   try {
