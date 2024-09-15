@@ -6,12 +6,7 @@ import dotenv from 'dotenv';
 
 const app = express();
 app.use(express.json());
-app.use(
-  cors({
-    origin: 'https://gym-buddy-brqescw69-anand-royys-projects.vercel.app', // Replace with your Vercel frontend URL
-    credentials: true, // If your API requires credentials like tokens or cookies
-  })
-);
+app.use(cors());
 dotenv.config();
 
 app.post('/api/routines', async (req, res) => {
