@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 dotenv.config();
 
-app.post('https://gym-buddy-sage.vercel.app/api/routines', async (req, res) => {
+app.post('/api/routines', async (req, res) => {
   try {
     const { length, name, fields } = req.body; // Get data from the request body
     const id = length;
@@ -33,7 +33,7 @@ app.post('https://gym-buddy-sage.vercel.app/api/routines', async (req, res) => {
 });
 
 app.get(
-  'https://gym-buddy-sage.vercel.app/api/routines/:id',
+  '/api/routines/:id',
   async (req, res) => {
     const { id } = req.params;
     console.log(id);
@@ -49,7 +49,7 @@ app.get(
   }
 );
 // Example route to get all routines
-app.get('https://gym-buddy-sage.vercel.app/api/routines', async (req, res) => {
+app.get('/api/routines', async (req, res) => {
   try {
     const routines = await Routine.find();
     res.status(200).json({ success: true, data: routines });
